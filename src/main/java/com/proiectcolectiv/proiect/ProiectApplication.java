@@ -2,7 +2,7 @@ package com.proiectcolectiv.proiect;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-////salut
+
 @SpringBootApplication
 public class ProiectApplication {
 
