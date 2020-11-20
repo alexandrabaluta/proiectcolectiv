@@ -3,9 +3,6 @@ package com.proiectcolectiv.proiect.mappers;
 import com.proiectcolectiv.proiect.dtos.AdministratorDTO;
 import com.proiectcolectiv.proiect.entities.AdministratorEntity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class AdministratorMapper {
     public static AdministratorEntity mapAdministratorDtoToAdministrator(AdministratorDTO administratorDTO) {
         AdministratorEntity administratorEntity = new AdministratorEntity();

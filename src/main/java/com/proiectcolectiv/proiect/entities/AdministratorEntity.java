@@ -5,14 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "administrator", schema = "proiectcolectiv")
 public class AdministratorEntity {
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Id
     private int idAdministrator;
-
     private String email;
     private String password;
 
-
+    @Id
+    @Column(name = "ID_ADMINISTRATOR")
     public int getIdAdministrator() {
         return idAdministrator;
     }
@@ -21,7 +19,8 @@ public class AdministratorEntity {
         this.idAdministrator = idAdministrator;
     }
 
-
+    @Basic
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -30,6 +29,8 @@ public class AdministratorEntity {
         this.email = email;
     }
 
+    @Basic
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }

@@ -2,24 +2,25 @@ package com.proiectcolectiv.proiect.entities;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "supervisor", schema = "proiectcolectiv")
 public class SupervisorEntity {
-    @Id
-    private int idSupervisor;
-
+    private int idsupervisor;
     private String email;
     private String password;
 
+    @Id
+    @Column(name = "IDSUPERVISOR")
     public int getIdSupervisor() {
-        return idSupervisor;
+        return idsupervisor;
     }
 
-    public void setIdSupervisor(int idSupervisor) {
-        this.idSupervisor = idSupervisor;
+    public void setIdSupervisor(int idsupervisor) {
+        this.idsupervisor = idsupervisor;
     }
 
+    @Basic
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -28,7 +29,8 @@ public class SupervisorEntity {
         this.email = email;
     }
 
-
+    @Basic
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
@@ -44,7 +46,7 @@ public class SupervisorEntity {
 
         SupervisorEntity that = (SupervisorEntity) o;
 
-        if (idSupervisor != that.idSupervisor) return false;
+        if (idsupervisor != that.idsupervisor) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
@@ -53,7 +55,7 @@ public class SupervisorEntity {
 
     @Override
     public int hashCode() {
-        int result = idSupervisor;
+        int result = idsupervisor;
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;

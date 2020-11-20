@@ -5,22 +5,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "readonlyuser", schema = "proiectcolectiv")
 public class ReadonlyuserEntity {
-    @Id
-    private int idReadOnlyUser;
-
+    private int idreadonlyuser;
     private String email;
     private String password;
 
-
+    @Id
+    @Column(name = "IDREADONLYUSER")
     public int getIdReadOnlyUser() {
-        return idReadOnlyUser;
+        return idreadonlyuser;
     }
 
-    public void setIdReadOnlyUser(int idReadOnlyUser) {
-        this.idReadOnlyUser = idReadOnlyUser;
+    public void setIdReadOnlyUser(int idreadonlyuser) {
+        this.idreadonlyuser = idreadonlyuser;
     }
 
-
+    @Basic
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -29,7 +29,8 @@ public class ReadonlyuserEntity {
         this.email = email;
     }
 
-
+    @Basic
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
@@ -45,7 +46,7 @@ public class ReadonlyuserEntity {
 
         ReadonlyuserEntity that = (ReadonlyuserEntity) o;
 
-        if (idReadOnlyUser != that.idReadOnlyUser) return false;
+        if (idreadonlyuser != that.idreadonlyuser) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
@@ -54,7 +55,7 @@ public class ReadonlyuserEntity {
 
     @Override
     public int hashCode() {
-        int result = idReadOnlyUser;
+        int result = idreadonlyuser;
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;

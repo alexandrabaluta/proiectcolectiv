@@ -2,7 +2,6 @@ package com.proiectcolectiv.proiect.mappers;
 
 
 import com.proiectcolectiv.proiect.dtos.SupervisorDTO;
-
 import com.proiectcolectiv.proiect.entities.SupervisorEntity;
 
 public class SupervisorMapper {
