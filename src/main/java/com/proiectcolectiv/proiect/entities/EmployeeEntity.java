@@ -5,12 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "employee", schema = "proiectcolectiv")
 public class EmployeeEntity {
-    private int idEmployee;
-    private String email;
-    private String password;
+
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_EMPLOYEE")
+    private int idEmployee;
     public int getIdEmployee() {
         return idEmployee;
     }
@@ -21,6 +21,7 @@ public class EmployeeEntity {
 
     @Basic
     @Column(name = "EMAIL")
+    private String email;
     public String getEmail() {
         return email;
     }
@@ -31,6 +32,7 @@ public class EmployeeEntity {
 
     @Basic
     @Column(name = "PASSWORD")
+    private String password;
     public String getPassword() {
         return password;
     }
