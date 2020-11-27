@@ -10,6 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 
 @Service
@@ -22,8 +23,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<UserEntity> getUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+    public Optional<UserEntity> getUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
 
@@ -32,20 +33,20 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public UserEntity findOne(String username) {
-        return userRepository.getUserByUsername(username);
+    public UserEntity findOne(String email) {
+        return userRepository.getUserByEmail(email);
     }
 
 
     public UserEntity save(UserEntity user) {
         Optional<UserEntity> optionalUser;
 
-        optionalUser = userRepository.findUserByUsernameOrEmail(user.getUsername(),user.getEmail());
+        optionalUser = userRepository.findUserByEmail(user.getEmail());
 
         UserEntity user1 = optionalUser.isPresent() ? null : userRepository.save(user);
 
         return ofNullable(user1)
-                .orElseThrow(() -> new EntityExistsException("User already exist: " + user.getUsername()));
+                .orElseThrow(() -> new EntityExistsException("User already exist: " + user.getEmail()));
     }
 
     public UserEntity update(UserEntity user) {

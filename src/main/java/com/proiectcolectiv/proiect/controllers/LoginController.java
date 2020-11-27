@@ -41,7 +41,7 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody LoginUserDTO loginUserDTO) throws AuthenticationException {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDTO.getUsername(), loginUserDTO.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDTO.getEmail(), loginUserDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenUtil.generateToken(authentication);
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
@@ -109,10 +109,9 @@ public class LoginController {
     UserEntity register(@RequestBody UserDTO userDTO) {
         UserEntity user = new UserEntity();
         user.setEmail(userDTO.getEmail());
-        user.setUsername(userDTO.getUsername());
         String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
         user.setPasswordHash(encryptedPassword);
-        user.setRole(Role.EMPLOYEE);
+        user.setRole(userDTO.getRole());
 
         return userService.save(user);
     }

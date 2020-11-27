@@ -1,5 +1,9 @@
 package com.proiectcolectiv.proiect.entities;
 
 public enum Role {
-    EMPLOYEE
+    EMPLOYEE,
+    ADMINISTRATOR,
+    SUPERVISOR,
+    READONLYUSER;
+
 }

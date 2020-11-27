@@ -11,8 +11,6 @@ public class UserDTO {
     private String email;
     private String password;
     private Role role;
-    private String username;
-
 
     public UserDTO() {
     }
@@ -41,11 +39,4 @@ public class UserDTO {
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
