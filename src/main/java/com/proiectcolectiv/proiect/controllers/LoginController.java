@@ -46,7 +46,7 @@ public class LoginController {
         String jwt = jwtTokenUtil.generateToken(authentication);
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new AuthToken(jwt, userPrincipal.getUsername(), userPrincipal.getId()));
+        return ResponseEntity.ok(new AuthToken(jwt, userPrincipal.getUsername(), userPrincipal.getId(), userPrincipal.getRole()));
     }
 
     @CrossOrigin
@@ -112,6 +112,9 @@ public class LoginController {
         String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
         user.setPasswordHash(encryptedPassword);
         user.setRole(userDTO.getRole());
+        user.setProfilePic(null);
+        user.setProfilePicName("");
+        user.setProfilePicType("");
 
         return userService.save(user);
     }

@@ -6,11 +6,13 @@ public class AuthToken {
     private String tokenType = "Bearer";
     private String username;
     private Long id;
+    private Role role;
 
-    public AuthToken(String accessToken, String username, Long id) {
+    public AuthToken(String accessToken, String username, Long id, Role role) {
         this.accessToken = accessToken;
         this.id = id;
         this.username = username;
+        this.role=role;
     }
 
     public String getAccessToken() {
@@ -43,5 +45,13 @@ public class AuthToken {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
