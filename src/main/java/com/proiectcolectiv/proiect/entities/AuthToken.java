@@ -4,14 +4,14 @@ public class AuthToken {
 
     private String accessToken;
     private String tokenType = "Bearer";
-    private String username;
+    private String email;
     private Long id;
     private Role role;
 
-    public AuthToken(String accessToken, String username, Long id, Role role) {
+    public AuthToken(String accessToken, String email, Long id, Role role) {
         this.accessToken = accessToken;
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.role=role;
     }
 
@@ -31,12 +31,12 @@ public class AuthToken {
         this.tokenType = tokenType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {

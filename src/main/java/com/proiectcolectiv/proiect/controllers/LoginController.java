@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @Api
-@Controller
+@RestController
 @RequestMapping("/api")
 public class LoginController {
 
