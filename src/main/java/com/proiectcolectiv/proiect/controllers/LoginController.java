@@ -58,7 +58,6 @@ public class LoginController {
         return (userPrincipal == null) ? (ResponseEntity<?>) ResponseEntity.badRequest() : ResponseEntity.ok(new ApiResponse(userPrincipal.getUsername(), userPrincipal.getId()));
     }
 
-
     @CrossOrigin
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity<?> logout() throws AuthenticationException {

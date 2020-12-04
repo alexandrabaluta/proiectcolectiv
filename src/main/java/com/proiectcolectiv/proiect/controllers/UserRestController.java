@@ -1,9 +1,15 @@
 package com.proiectcolectiv.proiect.controllers;
 
+import com.proiectcolectiv.proiect.entities.ApiResponse;
+import com.proiectcolectiv.proiect.entities.CurrentUser;
 import com.proiectcolectiv.proiect.entities.UserEntity;
 import com.proiectcolectiv.proiect.repositories.UserRepository;
 import io.swagger.annotations.Api;
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
@@ -29,14 +35,19 @@ public class UserRestController {
 
 
     @RequestMapping(value = "/employee/upload", method = RequestMethod.POST)
-    public String uploadImage(@RequestParam("imageFile") MultipartFile file)
+    public ResponseEntity<Object> uploadImage(@RequestParam("imageFile") MultipartFile file)
             throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
-        UserEntity img = new UserEntity(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
+        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserEntity img = currentUser.getUser();
+        img.setProfilePic(compressBytes(file.getBytes()));
+        img.setProfilePicType(file.getContentType());
+        img.setProfilePicName(file.getOriginalFilename());
         userRepository.save(img);
-        return "ok";
+        return ResponseEntity.ok().build();
     }
-    @RequestMapping(value = "employee/get/", method = RequestMethod.POST)
+
+    @RequestMapping(value = "employee/get/{imageName}", method = RequestMethod.POST)
     public UserEntity getImage(@PathVariable("imageName") String imageName) throws IOException {
         final Optional<UserEntity> retrievedImage = userRepository.findUserEntityByProfilePicName(imageName);
         UserEntity img = new UserEntity(retrievedImage.get().getProfilePicName(), retrievedImage.get().getProfilePicType(), decompressBytes(retrievedImage.get().getProfilePic()));
