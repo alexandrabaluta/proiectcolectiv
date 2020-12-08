@@ -24,6 +24,8 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
         return user.getRole();
     }
 
+    public String getProfilePicName(){return user.getProfilePicName();}
+
     @Override
     public String toString() {
         return "CurrentUser{" +

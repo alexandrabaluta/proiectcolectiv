@@ -46,7 +46,7 @@ public class LoginController {
         String jwt = jwtTokenUtil.generateToken(authentication);
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new AuthToken(jwt, userPrincipal.getUsername(), userPrincipal.getId(), userPrincipal.getRole()));
+        return ResponseEntity.ok(new AuthToken(jwt, userPrincipal.getUsername(), userPrincipal.getId(), userPrincipal.getRole(), userPrincipal.getProfilePicName()));
     }
 
     @CrossOrigin

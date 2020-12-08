@@ -8,11 +8,22 @@ public class AuthToken {
     private Long id;
     private Role role;
 
-    public AuthToken(String accessToken, String email, Long id, Role role) {
+    public String getProfilePicName() {
+        return profilePicName;
+    }
+
+    public void setProfilePicName(String profilePicName) {
+        this.profilePicName = profilePicName;
+    }
+
+    private String profilePicName;
+
+    public AuthToken(String accessToken, String email, Long id, Role role, String profilePicName) {
         this.accessToken = accessToken;
         this.id = id;
         this.email = email;
         this.role=role;
+        this.profilePicName = profilePicName;
     }
 
     public String getAccessToken() {
