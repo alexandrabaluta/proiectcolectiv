@@ -1,16 +1,20 @@
 package com.proiectcolectiv.proiect.controllers;
 
 import com.proiectcolectiv.proiect.dtos.ProjectDTO;
+import com.proiectcolectiv.proiect.dtos.TechnologyDTO;
 import com.proiectcolectiv.proiect.dtos.UserDTO;
 import com.proiectcolectiv.proiect.entities.ProjectsEntity;
+import com.proiectcolectiv.proiect.entities.Technology;
 import com.proiectcolectiv.proiect.entities.UserEntity;
 import com.proiectcolectiv.proiect.services.AdministratorService;
 import com.proiectcolectiv.proiect.services.ProjectService;
+import com.proiectcolectiv.proiect.services.TechnologyService;
 import com.proiectcolectiv.proiect.services.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +30,9 @@ public class AdministratorRestController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private TechnologyService technologyService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -74,8 +81,8 @@ public class AdministratorRestController {
     public @ResponseBody
     UserEntity updateUser(@RequestBody UserDTO userDTO) {
         Optional<UserEntity> user = administratorService.findUserByEmail(userDTO.getEmail());
-        if(user.isPresent()) {
-            UserEntity user1=user.get();
+        if (user.isPresent()) {
+            UserEntity user1 = user.get();
             String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
             user1.setPasswordHash(encryptedPassword);
             user1.setRole(userDTO.getRole());
@@ -85,6 +92,24 @@ public class AdministratorRestController {
             return administratorService.update(user1);
         }
         return null;
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @RequestMapping(value = "/get/technology", method = RequestMethod.GET)
+    public List<Technology> findAllTechnologies() {
+        return technologyService.findAll();
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @RequestMapping(value = "/add/technology", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<?> addTechnology(@RequestBody TechnologyDTO technologyDTO) {
+        Technology technology = new Technology();
+        technology.setTechnology(technologyDTO.getTechnology());
+
+        technologyService.save(technology);
+        return ResponseEntity.ok().build();
     }
 
     @Bean
