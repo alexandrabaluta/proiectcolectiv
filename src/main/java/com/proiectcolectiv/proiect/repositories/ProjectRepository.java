@@ -1,7 +1,6 @@
 package com.proiectcolectiv.proiect.repositories;
 
 import com.proiectcolectiv.proiect.entities.ProjectsEntity;
-import com.proiectcolectiv.proiect.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,15 +1,8 @@
 package com.proiectcolectiv.proiect.controllers;
 
-import com.proiectcolectiv.proiect.dtos.ProjectDTO;
-import com.proiectcolectiv.proiect.dtos.TechnologyDTO;
-import com.proiectcolectiv.proiect.dtos.UserDTO;
-import com.proiectcolectiv.proiect.entities.ProjectsEntity;
-import com.proiectcolectiv.proiect.entities.Technology;
-import com.proiectcolectiv.proiect.entities.UserEntity;
-import com.proiectcolectiv.proiect.services.AdministratorService;
-import com.proiectcolectiv.proiect.services.ProjectService;
-import com.proiectcolectiv.proiect.services.TechnologyService;
-import com.proiectcolectiv.proiect.services.UserService;
+import com.proiectcolectiv.proiect.dtos.*;
+import com.proiectcolectiv.proiect.entities.*;
+import com.proiectcolectiv.proiect.services.*;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +26,12 @@ public class AdministratorRestController {
 
     @Autowired
     private TechnologyService technologyService;
+
+    @Autowired
+    private SkillService skillService;
+
+    @Autowired
+    private RegionService regionService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -109,6 +108,42 @@ public class AdministratorRestController {
         technology.setTechnology(technologyDTO.getTechnology());
 
         technologyService.save(technology);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @RequestMapping(value = "/get/skill", method = RequestMethod.GET)
+    public List<Skill> findAllSkills() {
+        return skillService.findAll();
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @RequestMapping(value = "/add/skill", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<?> addSkill(@RequestBody SkillDTO skillDTO) {
+        Skill skill = new Skill();
+        skill.setSkill(skillDTO.getSkill());
+
+        skillService.save(skill);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @RequestMapping(value = "/get/region", method = RequestMethod.GET)
+    public List<Region> findAllRegions() {
+        return regionService.findAll();
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @RequestMapping(value = "/add/region", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<?> addRegion(@RequestBody RegionDTO regionDTO) {
+        Region region = new Region();
+        region.setRegion(regionDTO.getRegion());
+
+        regionService.save(region);
         return ResponseEntity.ok().build();
     }
 

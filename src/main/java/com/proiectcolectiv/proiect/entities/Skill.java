@@ -3,54 +3,55 @@ package com.proiectcolectiv.proiect.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "technology")
-public class Technology {
+@Table(name = "skill")
+public class Skill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    @Column(name = "technology", nullable = false)
-    private String technology;
+    @Column(name = "skill", nullable = false)
+    private String skill;
 
     public Long getId() {
         return id;
     }
 
-    public String getTechnology() {
-        return technology;
+    public String getSkill() {
+        return skill;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setTechnology(String technology) {
-        this.technology = technology;
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Technology that = (Technology) o;
+        Skill that = (Skill) o;
 
         if (!id.equals(that.id)) return false;
-        if (technology != null ? !technology.equals(that.technology) : that.technology != null) return false;
+        if (skill != null ? !skill.equals(that.skill) : that.skill != null) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
         int result = id.intValue();
-        result = 31 * result + (technology != null ? technology.hashCode() : 0);
+        result = 31 * result + (skill != null ? skill.hashCode() : 0);
         return result;
     }
     @Override
     public String toString() {
-        return "Technology{" +
+        return "Skill{" +
                 "id=" + id +
-                ", technology='" + technology.substring(0,50) +
+                ", skill='" + skill.substring(0,50) +
                 '}';
     }
+
 }
