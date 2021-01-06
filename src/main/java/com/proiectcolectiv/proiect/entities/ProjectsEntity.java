@@ -6,7 +6,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "projects", schema = "proiectcolectiv")
 public class ProjectsEntity {
-    private int id;
+    private Long id;
     private String name;
     private String nameCustomer;
     private String description;
@@ -15,11 +15,11 @@ public class ProjectsEntity {
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,7 +92,7 @@ public class ProjectsEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id.intValue();
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (nameCustomer != null ? nameCustomer.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);

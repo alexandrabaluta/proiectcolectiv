@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -88,6 +90,31 @@ public class UserEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public List<ProjectsEntity> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<ProjectsEntity> projects) {
+        this.projects = projects;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @JoinTable(name = "user_project",
+            joinColumns =  @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id") )
+    private List<ProjectsEntity> projects;
+
+   @OneToMany(mappedBy = "user")
+   private List<SkillOfUser> userSkills;
+
+    public List<SkillOfUser> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(List<SkillOfUser> userSkills) {
+        this.userSkills = userSkills;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -109,15 +136,5 @@ public class UserEntity implements Serializable {
     public void setPasswordHash(String passwordHash) {
         this.password = passwordHash;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email.replaceFirst("@.*", "@***") +
-                ", password='" + password.substring(0, 10) +
-                '}';
-    }
-
 
 }

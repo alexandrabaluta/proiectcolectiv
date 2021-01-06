@@ -1,6 +1,7 @@
 package com.proiectcolectiv.proiect.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "skill")
@@ -12,6 +13,8 @@ public class Skill {
     private Long id;
     @Column(name = "skill", nullable = false)
     private String skill;
+    @OneToMany(mappedBy = "skills")
+    private List<SkillOfUser> skills;
 
     public Long getId() {
         return id;
@@ -28,6 +31,8 @@ public class Skill {
     public void setSkill(String skill) {
         this.skill = skill;
     }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,10 +53,7 @@ public class Skill {
     }
     @Override
     public String toString() {
-        return "Skill{" +
-                "id=" + id +
-                ", skill='" + skill.substring(0,50) +
-                '}';
+        return getSkill();
     }
 
 }

@@ -6,17 +6,27 @@ import com.proiectcolectiv.proiect.entities.UserEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import java.util.List;
 
 public class UserDTO {
     private String email;
     private String password;
     private Role role;
+    private List<SkillDTO> skills;
 
     public UserDTO() {
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public List<SkillDTO> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<SkillDTO> skills) {
+        this.skills = skills;
     }
 
     public void setEmail(String email) {
@@ -38,5 +48,4 @@ public class UserDTO {
     public void setRole(Role role) {
         this.role = role;
     }
-
 }
