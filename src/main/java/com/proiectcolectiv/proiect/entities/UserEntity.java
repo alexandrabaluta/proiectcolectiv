@@ -24,9 +24,11 @@ public class UserEntity implements Serializable {
     @Column(name = "password", nullable = true)
     private String password;
 
-
     @Column(name = "email", nullable = true)
     private String email;
+
+    @Column(name = "id_supervisor", nullable = true)
+    private Long idSupervisor;
 
     public String getProfilePicType() {
         return profilePicType;
@@ -137,4 +139,11 @@ public class UserEntity implements Serializable {
         this.password = passwordHash;
     }
 
+    public Long getIdSupervisor() {
+        return idSupervisor;
+    }
+
+    public void setIdSupervisor(Long idSupervisor) {
+        this.idSupervisor = idSupervisor;
+    }
 }

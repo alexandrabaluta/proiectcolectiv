@@ -50,11 +50,11 @@ public class UserRestController {
     @RequestMapping(value = "employee/get/{imageName}", method = RequestMethod.POST)
     public UserEntity getImage(@PathVariable("imageName") String imageName) throws IOException {
         final Optional<UserEntity> retrievedImage = userRepository.findUserEntityByProfilePicName(imageName);
-        if(!retrievedImage.isEmpty()){
+        //if(!retrievedImage.isEmpty()){
             UserEntity img = new UserEntity(retrievedImage.get().getProfilePicName(), retrievedImage.get().getProfilePicType(), decompressBytes(retrievedImage.get().getProfilePic()));
             return img;
-        }
-        return null;
+       // }
+        //return null;
     }
 
     // compress the image bytes before storing it in the database
