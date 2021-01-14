@@ -2,6 +2,7 @@ package com.proiectcolectiv.proiect.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "projects", schema = "proiectcolectiv")

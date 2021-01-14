@@ -55,5 +55,4 @@ public class Skill {
     public String toString() {
         return getSkill();
     }
-
 }

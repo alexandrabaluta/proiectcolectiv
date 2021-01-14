@@ -1,21 +1,14 @@
 package com.proiectcolectiv.proiect.controllers;
 
-import com.proiectcolectiv.proiect.entities.ProjectsEntity;
-import com.proiectcolectiv.proiect.entities.Skill;
-import com.proiectcolectiv.proiect.entities.SkillOfUser;
-import com.proiectcolectiv.proiect.entities.UserEntity;
-import com.proiectcolectiv.proiect.services.EmployeeService;
-import com.proiectcolectiv.proiect.services.ProjectService;
-import com.proiectcolectiv.proiect.services.SkillService;
-import com.proiectcolectiv.proiect.services.UserService;
+import com.proiectcolectiv.proiect.dtos.ProjectExperienceDTO;
+import com.proiectcolectiv.proiect.entities.*;
+import com.proiectcolectiv.proiect.services.*;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api
@@ -34,6 +27,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private TechnologyService technologyService;
+
     @PreAuthorize("hasAuthority('EMPLOYEE')")
     @RequestMapping(value = "/get/project", method = RequestMethod.GET)
     public List<ProjectsEntity> findAll() {
@@ -46,7 +42,6 @@ public class EmployeeController {
         return skillService.findAll();
     }
 
-
     @PreAuthorize("hasAuthority('EMPLOYEE')")
     @RequestMapping(value = "/get/user", method = RequestMethod.GET)
     public UserEntity getUserData(@RequestParam String email) {
@@ -58,10 +53,21 @@ public class EmployeeController {
     public SkillOfUser addSkillToUser(@RequestParam Long userId, @RequestParam Long skillId, @RequestParam int grade) {
         return employeeService.saveSkill(userId,skillId,grade);
     }
-
     @PreAuthorize("hasAuthority('EMPLOYEE')")
     @RequestMapping(value = "/add/project", method = RequestMethod.POST)
-    public SkillOfUser addProjectToUser(@RequestParam Long userId, @RequestParam Long projectId) {
-        return employeeService.saveProject(userId,projectId);
+    public SkillOfUser addProjectToUser(@RequestBody ProjectExperienceDTO projectExperienceDTO) {
+        return employeeService.saveProject(projectExperienceDTO);
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+    @RequestMapping(value = "/get/userProjects", method = RequestMethod.GET)
+    public ArrayList<ProjectOfUser> getUserProjects(@RequestParam Long userId) {
+        return employeeService.getUserProjects(userId);
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+    @RequestMapping(value = "/get/technology", method = RequestMethod.GET)
+    public List<Technology> findAllTechnologies() {
+        return technologyService.findAll();
     }
 }
