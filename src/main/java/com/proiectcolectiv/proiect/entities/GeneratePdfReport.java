@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneratePdfReport {
-    public static ByteArrayInputStream employeeReport(UserEntity employee) throws DocumentException, IOException {
+    public static ByteArrayInputStream employeeReport(UserEntity employee) throws IOException, DocumentException {
 
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();

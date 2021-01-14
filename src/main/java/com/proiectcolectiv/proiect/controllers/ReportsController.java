@@ -33,10 +33,4 @@ public class ReportsController {
         return new ResponseEntity<>(employeesWithSkill,HttpStatus.OK);
     }
 
-
-//    @GetMapping(value = "searchBySkill/{id}")
-//    public ResponseEntity<SkillDTO> searchBySkill(@PathVariable("id") UUID doctorId) {
-//        DoctorDTO dto = doctorService.findDoctorById(doctorId);
-//        return new ResponseEntity<>(dto, HttpStatus.OK);
-//    }
 }
