@@ -1,5 +1,6 @@
 package com.proiectcolectiv.proiect.services;
 
+import com.lowagie.text.DocumentException;
 import com.proiectcolectiv.proiect.entities.ProjectsEntity;
 import com.proiectcolectiv.proiect.entities.Skill;
 import com.proiectcolectiv.proiect.entities.SkillOfUser;
@@ -11,7 +12,13 @@ import com.proiectcolectiv.proiect.repositories.UserRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +37,8 @@ public class EmployeeService {
         this.skillRepository = skillRepository;
         this.projectRepository = projectRepository;
     }
+
+
 
     public SkillOfUser saveProject(Long userId, Long projectId) {
         Optional<UserEntity> optionalUser;

@@ -2,7 +2,9 @@ package com.proiectcolectiv.proiect.dtos;
 
 import com.sun.istack.NotNull;
 
-public class SkillDTO {
+import java.io.Serializable;
+
+public class SkillDTO implements Serializable {
     private int id;
     private String skill;
 

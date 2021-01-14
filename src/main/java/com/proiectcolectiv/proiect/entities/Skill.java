@@ -16,6 +16,14 @@ public class Skill {
     @OneToMany(mappedBy = "skills")
     private List<SkillOfUser> skills;
 
+    public Skill(Long id, String skill) {
+        this.id = id;
+        this.skill = skill;
+    }
+
+    public Skill() {
+    }
+
     public Long getId() {
         return id;
     }
