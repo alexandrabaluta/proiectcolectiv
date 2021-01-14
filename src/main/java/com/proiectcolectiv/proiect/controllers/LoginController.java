@@ -103,7 +103,7 @@ public class LoginController {
         return ResponseEntity.ok(SecurityContextHolder.getContext().getAuthentication());
     }
 
-    @RequestMapping(value = "/public/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/public/register", method = RequestMethod.POST) 
     public @ResponseBody
     UserEntity register(@RequestBody UserDTO userDTO) {
         UserEntity user = new UserEntity();

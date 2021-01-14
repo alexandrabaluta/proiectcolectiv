@@ -1,24 +1,13 @@
 package com.proiectcolectiv.proiect.services;
 
-import com.lowagie.text.DocumentException;
-import com.proiectcolectiv.proiect.entities.ProjectsEntity;
-import com.proiectcolectiv.proiect.entities.Skill;
-import com.proiectcolectiv.proiect.entities.SkillOfUser;
-import com.proiectcolectiv.proiect.entities.UserEntity;
-import com.proiectcolectiv.proiect.repositories.ProjectRepository;
-import com.proiectcolectiv.proiect.repositories.SkillOfUserRepository;
-import com.proiectcolectiv.proiect.repositories.SkillRepository;
-import com.proiectcolectiv.proiect.repositories.UserRepository;
+import com.proiectcolectiv.proiect.dtos.ProjectExperienceDTO;
+import com.proiectcolectiv.proiect.entities.*;
+import com.proiectcolectiv.proiect.repositories.*;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,23 +18,33 @@ public class EmployeeService {
     private final SkillOfUserRepository skillOfUserRepository;
     private final SkillRepository skillRepository;
     private final ProjectRepository projectRepository;
+    private final ProjectOfUserRepository projectOfUserRepository;
 
     @Autowired
-    public EmployeeService(UserRepository userRepository, SkillOfUserRepository skillOfUserRepository, SkillRepository skillRepository, ProjectRepository projectRepository) {
+    public EmployeeService(UserRepository userRepository, SkillOfUserRepository skillOfUserRepository, SkillRepository skillRepository, ProjectRepository projectRepository, ProjectOfUserRepository projectOfUserRepository) {
         this.userRepository = userRepository;
         this.skillOfUserRepository = skillOfUserRepository;
         this.skillRepository = skillRepository;
         this.projectRepository = projectRepository;
+        this.projectOfUserRepository = projectOfUserRepository;
     }
 
-
-
-    public SkillOfUser saveProject(Long userId, Long projectId) {
+    public ArrayList<ProjectOfUser> getUserProjects(Long userId){
         Optional<UserEntity> optionalUser;
         optionalUser = userRepository.findById(userId);
 
+        if(optionalUser.isEmpty()){
+            throw new ServiceException("No such user");
+        }
+        return projectOfUserRepository.findProjectOfUserByUser(optionalUser.get());
+    }
+
+    public SkillOfUser saveProject(ProjectExperienceDTO projectExperienceDTO) {
+        Optional<UserEntity> optionalUser;
+        optionalUser = userRepository.findById(projectExperienceDTO.getUser());
+
         Optional<ProjectsEntity> optionalProject;
-        optionalProject = projectRepository.findById(projectId);
+        optionalProject = projectRepository.findById(projectExperienceDTO.getProjectsOfUser());
 
         if(optionalUser.isEmpty()){
             throw new ServiceException("No such user");
@@ -54,10 +53,15 @@ public class EmployeeService {
             throw new ServiceException("No such project");
         }
 
-        List<ProjectsEntity> projectList = optionalUser.get().getProjects();
-        projectList.add(optionalProject.get());
-        optionalUser.get().setProjects(projectList);
-        userRepository.save(optionalUser.get());
+        ProjectOfUser projectOfUser = new ProjectOfUser();
+        projectOfUser.setUser(optionalUser.get());
+        projectOfUser.setProject(optionalProject.get());
+        projectOfUser.setStartDate(projectExperienceDTO.getStartDate());
+        projectOfUser.setEndDate(projectExperienceDTO.getEndDate());
+        projectOfUser.setRole(projectExperienceDTO.getRole());
+        projectOfUser.setTechnologies(projectExperienceDTO.getTechnologies());
+
+        projectOfUserRepository.save(projectOfUser);
         return null;
     }
 
