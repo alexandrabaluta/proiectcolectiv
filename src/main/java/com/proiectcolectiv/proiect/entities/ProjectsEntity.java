@@ -7,15 +7,27 @@ import java.util.List;
 @Entity
 @Table(name = "projects", schema = "proiectcolectiv")
 public class ProjectsEntity {
-    private Long id;
-    private String name;
-    private String nameCustomer;
-    private String description;
-    private Date startDate;
-    private Date endDate;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "name_customer")
+    private String nameCustomer;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
+
     public Long getId() {
         return id;
     }
@@ -24,8 +36,6 @@ public class ProjectsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -34,8 +44,6 @@ public class ProjectsEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "name_customer")
     public String getNameCustomer() {
         return nameCustomer;
     }
@@ -44,8 +52,6 @@ public class ProjectsEntity {
         this.nameCustomer = nameCustomer;
     }
 
-    @Basic
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -54,8 +60,6 @@ public class ProjectsEntity {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "start_date")
     public Date getStartDate() {
         return startDate;
     }
@@ -64,8 +68,6 @@ public class ProjectsEntity {
         this.startDate = startDate;
     }
 
-    @Basic
-    @Column(name = "end_date")
     public Date getEndDate() {
         return endDate;
     }

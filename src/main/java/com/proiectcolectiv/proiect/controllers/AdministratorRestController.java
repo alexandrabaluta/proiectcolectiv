@@ -50,12 +50,12 @@ public class AdministratorRestController {
     public @ResponseBody
     ProjectsEntity addProject(@RequestBody ProjectDTO projectDTO) {
         ProjectsEntity projectsEntity = new ProjectsEntity();
+        projectsEntity.setId(null);
         projectsEntity.setName(projectDTO.getName());
         projectsEntity.setNameCustomer(projectDTO.getNameCustomer());
         projectsEntity.setStartDate(projectDTO.getStartDate());
         projectsEntity.setDescription(projectDTO.getDescription());
         projectsEntity.setEndDate(projectDTO.getEndDate());
-
         return projectService.save(projectsEntity);
     }
 
