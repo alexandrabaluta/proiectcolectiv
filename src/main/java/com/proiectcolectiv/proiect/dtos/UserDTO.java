@@ -6,9 +6,10 @@ import com.proiectcolectiv.proiect.entities.UserEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.List;
 
-public class UserDTO {
+public class UserDTO implements Serializable {
     private String email;
     private String password;
     private Role role;

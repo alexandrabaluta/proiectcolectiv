@@ -112,6 +112,23 @@ public class UserEntity implements Serializable {
     public List<SkillOfUser> getUserSkills() {
         return userSkills;
     }
+    public List<String> getProjectNames() {
+        List<String> projectNames= new ArrayList<>();
+        for(ProjectsEntity projectsEntity: projects){
+            projectNames.add(projectsEntity.getName());
+        }
+        return projectNames;
+    }
+
+
+    public List<String> getSkills() {
+        List<String> skills= new ArrayList<>();
+        for(SkillOfUser skillOfUser: userSkills){
+            skills.add(skillOfUser.getSkills());
+        }
+        return skills;
+    }
+
 
     public void setUserSkills(List<SkillOfUser> userSkills) {
         this.userSkills = userSkills;
